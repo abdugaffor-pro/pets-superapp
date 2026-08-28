@@ -380,6 +380,23 @@
   .booking-desc{flex:1; font-size:13px; font-weight:600;}
   .booking-time{font-size:11.5px; color:var(--ink-faint); font-weight:700; flex-shrink:0;}
 
+  /* ==================================================================
+     MOBILE (bottom tab bar + phone-sized layout)
+     Большинство пользователей открывают Lucky Paul по ссылке с телефона,
+     поэтому этот breakpoint — не "довесок", а основной сценарий.
+     Базовые (desktop) значения ниже, переопределения — в media-блоках.
+     ================================================================== */
+  .bottomnav{display:none; position:fixed; left:0; right:0; bottom:0; z-index:55;
+    background:rgba(255,255,255,0.96); backdrop-filter:blur(10px); border-top:1px solid var(--line);
+    padding:4px 4px calc(4px + env(safe-area-inset-bottom));}
+  .bottomnav-inner{display:flex; justify-content:space-between; max-width:560px; margin:0 auto;}
+  .navbtn-bottom{flex-direction:column; gap:3px; padding:7px 4px 6px; border-radius:12px; font-size:10px; flex:1; min-width:0;}
+  .navbtn-bottom svg{width:21px;height:21px;}
+  .navbtn-bottom.active-orange{background:transparent; color:var(--orange-600);}
+  .navbtn-bottom.active-orange svg{stroke:var(--orange-600);}
+  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:var(--radius);}
+  .table-scroll .vax-table{min-width:640px;}
+
   @media (max-width: 1080px){
     .product-grid, .svc-grid{grid-template-columns:repeat(2,1fr);}
     .health-grid{grid-template-columns:repeat(2,1fr);}
@@ -390,6 +407,60 @@
     .pmodal, .bmodal, .cmodal{grid-template-columns:1fr;}
     .home-hero{grid-template-columns:1fr;}
     nav.mainnav{display:none;}
+    .bottomnav{display:block;}
+    .container{padding-bottom:96px;}
+  }
+
+  @media (max-width: 640px){
+    .topbar-inner{padding:11px 14px; gap:10px;}
+    .brand-mark{width:32px;height:32px; font-size:15px; border-radius:9px;}
+    .brand-name{font-size:16px;}
+    .brand-tag{display:none;}
+    .acc-text{display:none;}
+    .account-chip{padding:6px;}
+    .cart-btn{padding:8px 12px 8px 10px;}
+
+    .container{padding:18px 14px 100px;}
+    .page-title{font-size:24px;}
+    .eyebrow{margin-bottom:10px;}
+
+    .home-hero{padding:22px 0 28px; gap:24px;}
+    .home-h1{font-size:28px; margin:10px 0 12px;}
+    .home-sub{font-size:13.5px;}
+    .home-cta-row{gap:8px;}
+    .btn-dark, .btn-outline{padding:12px 18px; font-size:13px;}
+    .hpc-visual{height:170px; font-size:70px;}
+
+    .quickbar{padding:16px 16px; gap:14px; border-radius:18px;}
+    .quickbar-label{font-size:14px;}
+    .qb-item{padding:8px 12px 8px 8px; font-size:11.5px;}
+
+    .cat-tiles{grid-template-columns:repeat(2,1fr); gap:8px;}
+    .cat-tile{padding:12px 10px;}
+    .search-row{gap:8px;}
+    .product-grid, .svc-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
+    .card-visual{height:120px;}
+    .card-body{padding:11px 11px 10px;}
+
+    .pet-header{flex-wrap:wrap; padding:18px; gap:14px;}
+    .pet-avatar{width:60px;height:60px; font-size:28px; border-radius:16px;}
+    .pet-info h2{font-size:19px;}
+    .pet-status-badge{margin-left:0; order:3; width:100%;}
+    .health-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
+    .doc-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
+    .vax-table th, .vax-table td{padding:11px 14px; font-size:12px;}
+
+    .order-row, .booking-row{flex-wrap:wrap; gap:6px 12px; padding:12px 14px;}
+    .order-date, .booking-date{width:auto;}
+    .order-total, .order-status, .booking-time{margin-left:auto;}
+
+    .hero{padding:26px 22px; border-radius:20px;}
+    .hero h1{font-size:24px;}
+    .hero-stats{gap:20px;}
+
+    .pmodal-body, .bmodal, .cmodal{padding:22px 18px 20px;}
+    .pmodal-visual{min-height:220px;}
+    .cart-panel{width:100%; max-width:100%;}
   }
 </style>
 </head>
@@ -430,6 +501,26 @@
     </div>
   </div>
 </div>
+
+<nav class="bottomnav" id="bottomnav">
+  <div class="bottomnav-inner">
+    <button class="navbtn navbtn-bottom active-orange" data-view="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Главная
+    </button>
+    <button class="navbtn navbtn-bottom" data-view="market">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 9l1-5h16l1 5M4 9h16v10H4zM9 13a3 3 0 006 0"/></svg>Товары
+    </button>
+    <button class="navbtn navbtn-bottom" data-view="services">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Услуги
+    </button>
+    <button class="navbtn navbtn-bottom" data-view="community">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 10a4 4 0 100-8 4 4 0 000 8zM23 20v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Клуб
+    </button>
+    <button class="navbtn navbtn-bottom" data-view="pet">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0112 6a5 5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>Питомец
+    </button>
+  </div>
+</nav>
 
 <div class="container">
 
@@ -1014,7 +1105,7 @@ function renderPetProfile(){
     <div class="health-grid">${statsHtml}</div>
     <div class="section-block">
       <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0112 6a5 5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>Вакцинация</h3>
-      <table class="vax-table"><thead><tr><th>Вакцина</th><th>Дата введения</th><th>Следующая</th><th>Статус</th><th>До вакцинации</th></tr></thead><tbody>${vaxHtml}</tbody></table>
+      <div class="table-scroll"><table class="vax-table"><thead><tr><th>Вакцина</th><th>Дата введения</th><th>Следующая</th><th>Статус</th><th>До вакцинации</th></tr></thead><tbody>${vaxHtml}</tbody></table></div>
     </div>
     <div class="section-block">
       <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>Документы питомца</h3>
