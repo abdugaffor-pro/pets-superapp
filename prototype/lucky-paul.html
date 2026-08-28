@@ -283,31 +283,40 @@
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
   .toast svg{width:16px;height:16px; stroke:var(--orange-400);}
 
-  /* ---- Home hero ---- */
-  .home-hero{display:grid; grid-template-columns:1.15fr 1fr; gap:44px; align-items:center; padding:52px 44px; border-radius:32px; position:relative; background:linear-gradient(115deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.90) 34%, rgba(255,255,255,.55) 58%, rgba(255,255,255,.12) 100%), url('assets/design/home-bg.jpg') center/cover no-repeat; margin:0 0 8px;}
-  .home-h1{font-size:46px; line-height:1.14; font-weight:700; margin:14px 0 18px; letter-spacing:-0.015em;}
-  .home-h1 .ital{font-style:italic; font-weight:500; color:var(--orange-600);}
-  .home-sub{font-size:15px; color:var(--ink-soft); line-height:1.65; max-width:480px; margin:0 0 26px;}
-  .home-cta-row{display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap;}
+  /* ---- Home hero: editorial fullbleed banner (native ratio — the banner already carries its own logo/tagline, so it is never cropped or overlaid) ---- */
+  .hero-editorial{position:relative; margin:-34px -28px 0; border-radius:0 0 32px 32px; overflow:hidden; aspect-ratio:1200/630; background:var(--orange-100);}
+  .hero-editorial-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center;}
+  .hero-cta-bar{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; padding:22px 4px 4px;}
+  .home-cta-row{display:flex; gap:12px; flex-wrap:wrap;}
   .btn-dark{border:none; background:var(--ink); color:#fff; padding:14px 24px; border-radius:100px; font-weight:700; font-size:13.5px; transition:background .15s ease;}
   .btn-dark:hover{background:var(--orange-600);}
   .btn-outline{border:1.5px solid var(--line-strong); background:#fff; color:var(--ink); padding:14px 24px; border-radius:100px; font-weight:700; font-size:13.5px; transition:all .15s ease;}
   .btn-outline:hover{border-color:var(--orange-500); color:var(--orange-600);}
   .home-trust{font-size:12px; color:var(--ink-faint); font-weight:600;}
-  .home-pet-card{background:var(--panel); border:1px solid var(--line); border-radius:28px; box-shadow:var(--shadow-lg); overflow:hidden; position:relative;}
-  .hpc-visual{height:230px; background:linear-gradient(160deg,var(--orange-100),var(--orange-50)); display:flex; align-items:center; justify-content:center; font-size:100px;}
-  .hpc-body{padding:22px 24px 24px;}
-  .hpc-label{font-size:10.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
-  .hpc-name-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;}
-  .hpc-name-row h3{font-size:23px; margin:0; font-family:'Fraunces',serif;}
-  .hpc-view-btn{border:none; background:var(--orange-100); color:var(--orange-700); font-weight:700; font-size:12px; padding:8px 15px; border-radius:100px; white-space:nowrap;}
-  .hpc-view-btn:hover{background:var(--orange-500); color:#fff;}
-  .hpc-meta{font-size:12.5px; color:var(--ink-soft); font-style:italic; margin-bottom:16px;}
-  .hpc-stats{display:flex; justify-content:space-between; padding-top:16px; border-top:1px solid var(--line);}
-  .hpc-stat{text-align:center;}
-  .hpc-stat b{display:block; font-size:19px; font-family:'Fraunces',serif; font-weight:700;}
-  .hpc-stat span{font-size:10.5px; color:var(--ink-faint); font-weight:600;}
-  .hpc-vax-flag{position:absolute; top:16px; right:16px; font-size:10.5px; font-weight:800; padding:5px 11px; border-radius:100px; z-index:2;}
+
+  /* ---- Home: personal dashboard cabinet ---- */
+  .dash-cabinet{margin-bottom:36px;}
+  .dash-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  .dash-greeting{font-family:'Fraunces',serif; font-size:22px; font-weight:700;}
+  .dash-sub-line{font-size:13px; color:var(--ink-soft);}
+  .dash-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:16px;}
+  .dash-card{background:var(--panel); border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:var(--shadow-sm); position:relative;}
+  .dash-card.dash-alert-danger{border-color:var(--danger); box-shadow:0 0 0 1px var(--danger) inset;}
+  .dash-pet{display:flex; gap:16px; align-items:center;}
+  .dash-pet-visual{width:76px;height:76px; border-radius:50%; background:linear-gradient(160deg,var(--orange-100),var(--orange-50)); display:flex; align-items:center; justify-content:center; font-size:36px; flex-shrink:0;}
+  .dash-pet-body{min-width:0; flex:1;}
+  .dash-pet-body h3{margin:0 0 2px; font-size:19px; font-family:'Fraunces',serif;}
+  .dash-pet-meta{font-size:12px; color:var(--ink-soft); margin-bottom:10px;}
+  .dash-pet-stats{display:flex; gap:16px; margin-bottom:12px;}
+  .dash-pet-stats b{display:block; font-size:16px; font-family:'Fraunces',serif;}
+  .dash-pet-stats span{font-size:10px; color:var(--ink-faint); font-weight:600;}
+  .dash-card-label{font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px; display:flex; align-items:center; gap:6px;}
+  .dash-card-title{font-size:14.5px; font-weight:700; margin-bottom:8px; line-height:1.35;}
+  .dash-card-cta, .hpc-view-btn{border:none; background:var(--orange-100); color:var(--orange-700); font-weight:700; font-size:12px; padding:9px 15px; border-radius:100px; white-space:nowrap;}
+  .dash-card-cta{width:100%; text-align:center; margin-top:2px;}
+  .dash-card-cta:hover, .hpc-view-btn:hover{background:var(--orange-500); color:#fff;}
+  .dash-card-cta.urgent{background:var(--danger); color:#fff;}
+  .dash-card-cta.urgent:hover{background:#c8402c;}
 
   .quickbar{background:var(--ink); border-radius:22px; padding:20px 26px; display:flex; align-items:center; gap:24px; margin-bottom:44px; flex-wrap:wrap;}
   .quickbar-label{color:#fff; font-family:'Fraunces',serif; font-size:16px; flex-shrink:0;}
@@ -447,7 +456,9 @@
     .quick-grid{grid-template-columns:1fr;}
     .cat-tiles{grid-template-columns:repeat(2,1fr);}
     .pmodal, .bmodal, .cmodal{grid-template-columns:1fr;}
-    .home-hero{grid-template-columns:1fr;}
+    .hero-editorial{margin:-34px -28px 0; border-radius:0 0 26px 26px;}
+    .dash-grid{grid-template-columns:1fr 1fr;}
+    .dash-grid .dash-pet{grid-column:1 / -1;}
     nav.mainnav{display:none;}
     .bottomnav{display:block;}
     .container{padding-bottom:96px;}
@@ -466,12 +477,14 @@
     .page-title{font-size:24px;}
     .eyebrow{margin-bottom:10px;}
 
-    .home-hero{padding:22px 20px 28px; gap:24px; border-radius:22px;}
-    .home-h1{font-size:28px; margin:10px 0 12px;}
-    .home-sub{font-size:13.5px;}
+    .hero-editorial{margin:-18px -14px 0; border-radius:0 0 22px 22px;}
+    .hero-cta-bar{flex-direction:column; align-items:stretch; padding:18px 2px 4px;}
+    .home-trust{font-size:11px;}
     .home-cta-row{gap:8px;}
-    .btn-dark, .btn-outline{padding:12px 18px; font-size:13px;}
-    .hpc-visual{height:170px; font-size:70px;}
+    .btn-dark, .btn-outline{padding:12px 18px; font-size:13px; flex:1; text-align:center;}
+    .dash-grid{grid-template-columns:1fr;}
+    .dash-greeting{font-size:19px;}
+    .dash-pet-stats{gap:12px;}
 
     .quickbar{padding:16px 16px; gap:14px; border-radius:18px;}
     .quickbar-label{font-size:14px;}
@@ -1143,19 +1156,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   <!-- ===================== HOME (default) ===================== -->
   <section class="view active" id="view-home">
-    <div class="home-hero">
-      <div class="home-hero-text">
-        <div class="eyebrow">One app. Their whole world.</div>
-        <h1 class="home-h1">Всё для вашего питомца — <span class="ital">в одном месте</span></h1>
-        <p class="home-sub">Товары, ветеринары, груминг, тренировки и сообщество владельцев — экосистема Lucky Paul объединяет всё вокруг профиля вашего питомца.</p>
-        <div class="home-cta-row">
-          <button class="btn-dark" onclick="goTo('market')">Перейти в маркетплейс →</button>
-          <button class="btn-outline" onclick="goTo('services')">Записаться на услугу</button>
-        </div>
-        <div class="home-trust">4.9 ★ рейтинг сообщества &nbsp;·&nbsp; Курируется в Москве</div>
-      </div>
-      <div class="home-pet-card" id="homePetCard"></div>
+    <div class="hero-editorial">
+      <img class="hero-editorial-img" src="assets/design/home-bg.jpg" alt="Lucky Paul — всё для питомца в одном месте">
     </div>
+    <div class="hero-cta-bar">
+      <div class="home-cta-row">
+        <button class="btn-dark" onclick="goTo('market')">Перейти в маркетплейс →</button>
+        <button class="btn-outline" onclick="goTo('services')">Записаться на услугу</button>
+      </div>
+      <div class="home-trust">4.9 ★ рейтинг сообщества &nbsp;·&nbsp; Курируется в Москве</div>
+    </div>
+
+    <div class="dash-cabinet" id="dashCabinet"></div>
 
     <div class="quickbar" id="quickbar">
       <span class="quickbar-label">Что нужно вашему питомцу сегодня?</span>
@@ -1955,21 +1967,62 @@ function renderPetHistoryBlocks(pet){
 }
 
 /* ================= HOME: pet card + quickbar + account chip ================= */
+function greetingWord(){
+  const h = new Date().getHours();
+  if(h < 6) return 'Доброй ночи';
+  if(h < 12) return 'Доброе утро';
+  if(h < 18) return 'Добрый день';
+  return 'Добрый вечер';
+}
 function renderHomePetCard(){
   const pet = PETS[activePet];
   const nv = nearestVaccine(pet);
   const badge = nv ? countdownBadge(nv.next) : null;
-  document.getElementById('homePetCard').innerHTML = `
-    <div class="hpc-visual">${pet.avatar}</div>
-    ${badge ? `<span class="hpc-vax-flag countdown-badge ${badge.cls}">💉 ${badge.label}</span>` : `<span class="hpc-vax-flag countdown-badge ok">Нет данных о вакцинах</span>`}
-    <div class="hpc-body">
-      <div class="hpc-label">Ваш питомец</div>
-      <div class="hpc-name-row"><h3>${pet.name}</h3><button class="hpc-view-btn" onclick="goTo('pet')">Смотреть профиль</button></div>
-      <div class="hpc-meta">${pet.breed} · ${pet.age}</div>
-      <div class="hpc-stats">
-        <div class="hpc-stat"><b>${pet.ordersTotal}</b><span>заказов</span></div>
-        <div class="hpc-stat"><b>${pet.bookings.length}</b><span>предстоящих</span></div>
-        <div class="hpc-stat"><b>${pet.healthPct}%</b><span>здоров</span></div>
+  const isUrgent = badge && (badge.cls === 'danger' || badge.cls === 'warn');
+  const nextBooking = pet.bookings && pet.bookings[0];
+
+  document.getElementById('dashCabinet').innerHTML = `
+    <div class="dash-head">
+      <div>
+        <div class="dash-greeting">${greetingWord()}, ${pet.owner} 👋</div>
+        <div class="dash-sub-line">Вот что сейчас важно для ${pet.name}</div>
+      </div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card dash-pet">
+        <div class="dash-pet-visual">${pet.avatar}</div>
+        <div class="dash-pet-body">
+          <h3>${pet.name}</h3>
+          <div class="dash-pet-meta">${pet.breed} · ${pet.age}</div>
+          <div class="dash-pet-stats">
+            <div><b>${pet.healthPct}%</b><span>здоров</span></div>
+            <div><b>${pet.ordersTotal}</b><span>заказов</span></div>
+            <div><b>${pet.bookings.length}</b><span>записей</span></div>
+          </div>
+          <button class="hpc-view-btn" onclick="goTo('pet')">Смотреть профиль →</button>
+        </div>
+      </div>
+      <div class="dash-card ${isUrgent ? 'dash-alert-danger' : ''}">
+        <div class="dash-card-label">💉 Вакцинация</div>
+        ${nv ? `
+          <div class="dash-card-title">${nv.name}</div>
+          <span class="countdown-badge ${badge.cls}" style="margin-bottom:14px; display:inline-block;">${badge.label}</span>
+          <button class="dash-card-cta ${isUrgent ? 'urgent' : ''}" onclick="activeSvcCat='vet'; goTo('services'); renderServices(); renderSvcTiles();">Записаться к ветеринару</button>
+        ` : `
+          <div class="dash-card-title">Нет данных о вакцинах</div>
+          <button class="dash-card-cta" onclick="goTo('pet')">Добавить данные</button>
+        `}
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">📅 Ближайшая запись</div>
+        ${nextBooking ? `
+          <div class="dash-card-title">${nextBooking.desc}</div>
+          <span class="countdown-badge ok" style="margin-bottom:14px; display:inline-block;">${nextBooking.date} · ${nextBooking.time}</span>
+          <button class="dash-card-cta" onclick="goTo('pet')">Все записи →</button>
+        ` : `
+          <div class="dash-card-title">Нет предстоящих записей</div>
+          <button class="dash-card-cta" onclick="goTo('services')">Записаться на услугу</button>
+        `}
       </div>
     </div>`;
 }
