@@ -1,0 +1,90 @@
+{
+ "logos": {
+  "vet": {
+   "path": "assets/services/logos/vet.png",
+   "sizeKb": 155
+  },
+  "walk": {
+   "path": "assets/services/logos/walk.png",
+   "sizeKb": 167
+  },
+  "groom": {
+   "path": "assets/services/logos/groom.png",
+   "sizeKb": 156
+  },
+  "board": {
+   "path": "assets/services/logos/board.png",
+   "sizeKb": 165
+  },
+  "train": {
+   "path": "assets/services/logos/train.png",
+   "sizeKb": 169
+  }
+ },
+ "specialists": {
+  "vet": [
+   {
+    "name": "Доктор Лев Валерьяныч",
+    "path": "assets/services/specialists/vet-doktor-lev-valeryanych.jpg",
+    "sizeKb": 36
+   },
+   {
+    "name": "Доктор Наталья Лапкина",
+    "path": "assets/services/specialists/vet-doktor-natalya-lapkina.jpg",
+    "sizeKb": 24
+   }
+  ],
+  "walk": [
+   {
+    "name": "Артем Скайволкер",
+    "path": "assets/services/specialists/walk-artem-skai-volker.jpg",
+    "sizeKb": 69
+   },
+   {
+    "name": "Лада Лампова",
+    "path": "assets/services/specialists/walk-lada-lampova.jpg",
+    "sizeKb": 55
+   }
+  ],
+  "groom": [
+   {
+    "name": "Борис Барбоскин",
+    "path": "assets/services/specialists/groom-boris-barboskin.jpg",
+    "sizeKb": 31
+   },
+   {
+    "name": "Яна Стрижкина",
+    "path": "assets/services/specialists/groom-yana-strizhkina.jpg",
+    "sizeKb": 25
+   }
+  ],
+  "board": [
+   {
+    "name": "Pets House Pucci",
+    "path": "assets/services/specialists/board-pets-house-pucci.jpg",
+    "sizeKb": 38
+   },
+   {
+    "name": "Отель Кот-дИвуар",
+    "path": "assets/services/specialists/board-otel-kot-divuar.jpg",
+    "sizeKb": 39
+   }
+  ],
+  "train": [
+   {
+    "name": "Алла Мурлыкина",
+    "path": "assets/services/specialists/train-alla-murlykina.jpg",
+    "sizeKb": 82
+   },
+   {
+    "name": "Михаил Бетховен",
+    "path": "assets/services/specialists/train-mihail-bethoven.jpg",
+    "sizeKb": 49
+   }
+  ]
+ },
+ "homebg": {
+  "path": "assets/design/home-bg.jpg",
+  "sizeKb": 84
+ }
+}
