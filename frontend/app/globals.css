@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "Inter", sans-serif;
+  --font-fraunces: "Fraunces", serif;
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-fraunces);
+}
+
+::selection {
+  background: #ffd3ad;
+}
