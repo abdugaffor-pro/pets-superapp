@@ -320,6 +320,27 @@
   .svc-rating{display:flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; color:var(--ink);}
   .svc-rating svg{width:12px;height:12px; fill:var(--orange-500); stroke:var(--orange-500);}
   .svc-book-btn{border:none; background:var(--ink); color:#fff; padding:9px 14px; border-radius:10px; font-weight:700; font-size:11.5px; white-space:nowrap;}
+  .svc-viewtoggle{display:flex; gap:8px; margin-bottom:18px;}
+  .svc-vtbtn{border:1.5px solid var(--line-strong); background:#fff; border-radius:100px; padding:9px 20px; font-weight:700; font-size:13px; font-family:inherit; cursor:pointer; transition:all .15s ease; display:inline-flex; align-items:center; gap:6px;}
+  .svc-vtbtn svg{width:15px;height:15px;}
+  .svc-vtbtn.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .svc-map-wrap{margin-bottom:8px;}
+  .svc-map{width:100%; height:440px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--gray-bg,#eee);}
+  .map-note{font-size:11.5px; color:var(--ink-faint); margin-top:10px; display:flex; align-items:center; gap:6px;}
+  .map-popup{font-family:inherit; min-width:170px;}
+  .map-popup h5{margin:0 0 3px; font-size:13px;}
+  .map-popup .mp-sub{margin:0 0 8px; font-size:11.5px; color:#666;}
+  .map-popup .mp-price{font-size:12px; font-weight:700; margin-bottom:8px;}
+  .map-popup button{border:none; background:var(--orange-600); color:#fff; padding:7px 12px; border-radius:8px; font-weight:700; font-size:11.5px; cursor:pointer; width:100%; font-family:inherit;}
+  .pet-map-wrap{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-sm); padding:18px; box-shadow:var(--shadow-sm);}
+  .pet-map{width:100%; height:260px; border-radius:12px; overflow:hidden; border:1px solid var(--line);}
+  .pet-map-meta{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:6px;}
+  .pet-map-area{font-weight:700; font-size:13.5px;}
+  .pet-map-time{font-size:11.5px; color:var(--ink-faint);}
+  @media (max-width: 640px){
+    .svc-map{height:320px;}
+    .pet-map{height:220px;}
+  }
   .svc-book-btn:hover{background:var(--orange-600);}
 
   /* ---- Booking modal ---- */
@@ -332,6 +353,8 @@
   .bmodal select:focus, .bmodal input:focus{border-color:var(--orange-400);}
   .bmodal-confirm{width:100%; border:none; background:var(--ink); color:#fff; padding:14px; border-radius:13px; font-weight:700; font-size:14px; margin-top:24px;}
   .bmodal-confirm:hover{background:var(--orange-600);}
+  .docpreview-frame{margin-top:18px; border:1.5px dashed var(--line-strong); border-radius:14px; padding:40px 20px; display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--ink-faint); background:var(--gray-bg,#faf8f5);}
+  .docpreview-frame p{font-size:12.5px; font-weight:700; color:var(--ink-soft); margin:0; text-align:center;}
 
   /* ---- Community ---- */
   .tag-filter{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px;}
@@ -360,6 +383,17 @@
   .cmodal-comment .post-avatar{width:28px;height:28px;font-size:11px;}
   .cmodal-comment-body{font-size:12px; color:var(--ink-soft); line-height:1.5;}
   .cmodal-comment-author{font-size:12px; font-weight:700; color:var(--ink);}
+  .post-like{border:none; background:none; padding:0; font-family:inherit; cursor:pointer; transition:color .15s ease;}
+  .post-like:hover{color:var(--orange-600);}
+  .post-like.liked{color:var(--orange-600); font-weight:700;}
+  .post-like.liked svg{stroke:var(--orange-600);}
+  .cmodal-like{display:inline-flex; border:1.5px solid var(--line-strong); border-radius:100px; padding:8px 16px; font-size:12.5px; margin-bottom:18px;}
+  .cmodal-like.liked{border-color:var(--orange-500); background:var(--orange-50);}
+  .cmodal-addcomment{display:flex; gap:8px; border-top:1px solid var(--line); padding-top:16px; margin-top:16px;}
+  .cmodal-addcomment input{flex:1; border:1.5px solid var(--line-strong); border-radius:100px; padding:10px 16px; font-size:12.5px; font-family:inherit; outline:none;}
+  .cmodal-addcomment input:focus{border-color:var(--orange-400);}
+  .cmodal-addcomment button{border:none; background:var(--ink); color:#fff; padding:10px 18px; border-radius:100px; font-weight:700; font-size:12.5px; white-space:nowrap;}
+  .cmodal-addcomment button:hover{background:var(--orange-600);}
 
   /* ---- Pet profile: countdown / orders / bookings ---- */
   .countdown-badge{display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:800; padding:3px 9px; border-radius:100px;}
@@ -463,6 +497,581 @@
     .cart-panel{width:100%; max-width:100%;}
   }
 </style>
+<!-- Leaflet 1.9.4 CSS, inlined (OpenStreetMap map widget uses no external stylesheet / API key) -->
+<style>
+/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: url(#default#VML);
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted;
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted;
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+@media print {
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 </head>
 <body>
 
@@ -616,7 +1225,15 @@
     <h1 class="page-title">Услуги для питомца</h1>
     <p class="page-sub">Бронирование ветеринаров, грумеров, тренеров, передержки и выгула — с рейтингом, ценой и записью в один клик (демо-режим).</p>
     <div class="cat-tiles" id="svcTiles"></div>
+    <div class="svc-viewtoggle">
+      <button class="svc-vtbtn active" id="svcViewListBtn" onclick="setSvcView('list')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Список</button>
+      <button class="svc-vtbtn" id="svcViewMapBtn" onclick="setSvcView('map')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>На карте</button>
+    </div>
     <div class="product-grid svc-grid" id="svcGrid"></div>
+    <div class="svc-map-wrap" id="svcMapWrap" style="display:none;">
+      <div class="svc-map" id="svcMap"></div>
+      <p class="map-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Карта на основе OpenStreetMap — открытые данные, без API-ключа.</p>
+    </div>
   </section>
 
   <!-- ===================== COMMUNITY ===================== -->
@@ -644,6 +1261,16 @@
 <!-- ===================== COMMUNITY POST MODAL ===================== -->
 <div class="pmodal-overlay" id="cmodalOverlay">
   <div class="cmodal" id="cmodalBox"></div>
+</div>
+
+<!-- ===================== ADD PET MODAL ===================== -->
+<div class="pmodal-overlay" id="amodalOverlay">
+  <div class="bmodal" id="amodalBox"></div>
+</div>
+
+<!-- ===================== DOC PREVIEW MODAL ===================== -->
+<div class="pmodal-overlay" id="docmodalOverlay">
+  <div class="bmodal" id="docmodalBox"></div>
 </div>
 
 <!-- ===================== CART ===================== -->
@@ -762,7 +1389,8 @@ const PETS = {
       {name:'Международный ветеринарный сертификат', meta:'PDF · добавлен 20.03.2026'},
       {name:'Родословная', meta:'PDF · добавлен 01.02.2026'},
       {name:'Страховой полис', meta:'PDF · добавлен 15.06.2026'},
-    ]
+    ],
+    lastLocation:{lat:25.1130, lng:55.1975, area:'Al Barsha Pond Park', time:'Сегодня, 08:42'}
   },
   luna: {
     name:'Luna', species:'cat', avatar:'🐈', breed:'Британская короткошёрстная', age:'2 года', weight:'4.5 кг', owner:'Алексей',
@@ -791,7 +1419,8 @@ const PETS = {
       {name:'Ветеринарный паспорт', meta:'PDF · добавлен 18.02.2026'},
       {name:'Сертификат вакцинации', meta:'PDF · добавлен 18.02.2026'},
       {name:'Справка о стерилизации', meta:'PDF · добавлен 03.03.2026'},
-    ]
+    ],
+    lastLocation:{lat:25.1116, lng:55.1962, area:'Дома, Al Barsha', time:'Сегодня, 07:15'}
   }
 };
 const STATUS_LABEL = {ok:'Актуально', warn:'Скоро истекает', danger:'Просрочена'};
@@ -816,6 +1445,7 @@ function countdownBadge(dateStr){
   return {cls:'ok', label:`Через ${diff} дн.`};
 }
 function nearestVaccine(pet){
+  if(!pet.vaccines || !pet.vaccines.length) return null;
   return [...pet.vaccines].sort((a,b) => daysUntil(a.next) - daysUntil(b.next))[0];
 }
 const STAT_ICONS = {
@@ -829,17 +1459,18 @@ const STAT_ICONS = {
 const SVC_LABELS = {vet:'Ветеринария', groom:'Груминг', train:'Тренировки', board:'Передержка', walk:'Выгул'};
 const SVC_ORDER = ['vet','groom','train','board','walk'];
 const SERVICES = [
-  {id:'s1', cat:'vet', name:'Dr. Ahmed Al-Farsi', role:'Ветеринар · Dubai Pet Care Clinic', rating:4.9, price:150, unit:'приём', initials:'AA'},
-  {id:'s2', cat:'vet', name:'Dr. Sarah Mitchell', role:'Мобильный ветеринар · выезд на дом', rating:4.8, price:200, unit:'выезд', initials:'SM'},
-  {id:'s3', cat:'groom', name:'Kate Morrison', role:'Груминг-салон Paws & Style', rating:4.9, price:120, unit:'сеанс', initials:'KM'},
-  {id:'s4', cat:'groom', name:'Fatima Hussain', role:'Мобильный грумер · выезд на дом', rating:4.7, price:140, unit:'сеанс', initials:'FH'},
-  {id:'s5', cat:'train', name:'James O\'Connor', role:'Кинолог · послушание и коррекция поведения', rating:4.8, price:180, unit:'занятие', initials:'JO'},
-  {id:'s6', cat:'train', name:'Lina Petrova', role:'Групповые тренировки щенков', rating:4.6, price:90, unit:'занятие', initials:'LP'},
-  {id:'s7', cat:'board', name:'Pet Hotel Marina', role:'Передержка с видеонаблюдением', rating:4.7, price:110, unit:'сутки', initials:'PM'},
-  {id:'s8', cat:'board', name:"Omar's Pet Boarding", role:'Домашняя передержка', rating:4.9, price:95, unit:'сутки', initials:'OB'},
-  {id:'s9', cat:'walk', name:'Dog Walkers UAE', role:'Ежедневный выгул', rating:4.8, price:60, unit:'выгул', initials:'DW'},
-  {id:'s10', cat:'walk', name:'Maria Walks', role:'Индивидуальный выгул с фотоотчётом', rating:4.9, price:70, unit:'выгул', initials:'MW'},
+  {id:'s1', cat:'vet', name:'Dr. Ahmed Al-Farsi', role:'Ветеринар · Dubai Pet Care Clinic', rating:4.9, price:150, unit:'приём', initials:'AA', district:'Al Wasl', lat:25.1972, lng:55.2431},
+  {id:'s2', cat:'vet', name:'Dr. Sarah Mitchell', role:'Мобильный ветеринар · выезд на дом', rating:4.8, price:200, unit:'выезд', initials:'SM', district:'Dubai Marina', lat:25.0805, lng:55.1403},
+  {id:'s3', cat:'groom', name:'Kate Morrison', role:'Груминг-салон Paws & Style', rating:4.9, price:120, unit:'сеанс', initials:'KM', district:'Downtown Dubai', lat:25.1972, lng:55.2744},
+  {id:'s4', cat:'groom', name:'Fatima Hussain', role:'Мобильный грумер · выезд на дом', rating:4.7, price:140, unit:'сеанс', initials:'FH', district:'Al Barsha', lat:25.1122, lng:55.2016},
+  {id:'s5', cat:'train', name:'James O\'Connor', role:'Кинолог · послушание и коррекция поведения', rating:4.8, price:180, unit:'занятие', initials:'JO', district:'Mirdif', lat:25.2172, lng:55.4133},
+  {id:'s6', cat:'train', name:'Lina Petrova', role:'Групповые тренировки щенков', rating:4.6, price:90, unit:'занятие', initials:'LP', district:'Al Quoz', lat:25.1367, lng:55.2286},
+  {id:'s7', cat:'board', name:'Pet Hotel Marina', role:'Передержка с видеонаблюдением', rating:4.7, price:110, unit:'сутки', initials:'PM', district:'Dubai Marina', lat:25.0777, lng:55.1408},
+  {id:'s8', cat:'board', name:"Omar's Pet Boarding", role:'Домашняя передержка', rating:4.9, price:95, unit:'сутки', initials:'OB', district:'Jumeirah Village Circle', lat:25.0596, lng:55.2086},
+  {id:'s9', cat:'walk', name:'Dog Walkers UAE', role:'Ежедневный выгул', rating:4.8, price:60, unit:'выгул', initials:'DW', district:'Business Bay', lat:25.1857, lng:55.2764},
+  {id:'s10', cat:'walk', name:'Maria Walks', role:'Индивидуальный выгул с фотоотчётом', rating:4.9, price:70, unit:'выгул', initials:'MW', district:'Arabian Ranches', lat:25.0430, lng:55.2635},
 ];
+const SVC_MAP_COLOR = {vet:'#E0574A', groom:'#7A5CDB', train:'#2F9E63', board:'#D98C1F', walk:'#2E86C9'};
 let activeSvcCat = 'all';
 
 /* ================= COMMUNITY DATA ================= */
@@ -871,6 +1502,10 @@ let activeCat = 'all';
 let activePet = 'rex';
 let searchTerm = '';
 let sortMode = 'default';
+let svcView = 'list';
+let svcMap = null;
+let petMap = null;
+let petMapKey = null;
 
 /* ================= HELPERS ================= */
 function fmt(n){ return n.toLocaleString('ru-RU') + ' AED'; }
@@ -1064,7 +1699,7 @@ function renderPetSwitch(){
   Object.entries(PETS).forEach(([key, pet]) => {
     html += `<button class="pet-pill ${activePet===key?'active':''}" data-pet="${key}"><span class="av">${pet.avatar}</span>${pet.name}</button>`;
   });
-  html += `<button class="pet-pill add" onclick="showToast('Демо-режим: добавление питомца')">+ Добавить питомца</button>`;
+  html += `<button class="pet-pill add" onclick="openAddPetModal()">+ Добавить питомца</button>`;
   document.getElementById('petSwitch').innerHTML = html;
   document.querySelectorAll('.pet-pill[data-pet]').forEach(b => b.addEventListener('click', () => {
     activePet = b.dataset.pet; renderPetSwitch(); renderPetProfile(); renderHomePetCard(); updateAccountChip();
@@ -1087,11 +1722,11 @@ function renderPetProfile(){
     <td><span class="status-chip ${v.status}"><span class="sdot"></span>${STATUS_LABEL[v.status]}</span></td>
     <td><span class="countdown-badge ${cd.cls}">${cd.label}</span></td></tr>`;
   }).join('');
-  const docsHtml = pet.docs.map(d => `
+  const docsHtml = pet.docs.map((d,i) => `
     <div class="doc-card">
       <div class="doc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div>
       <h5>${d.name}</h5><div class="docmeta">${d.meta}</div>
-      <div class="doc-view" onclick="showToast('Демо-режим: файл не прикреплён')">Просмотреть</div>
+      <div class="doc-view" onclick="openDocPreview('${activePet}', ${i})">Просмотреть</div>
     </div>`).join('');
 
   document.getElementById('petProfileRoot').innerHTML = `
@@ -1103,15 +1738,28 @@ function renderPetProfile(){
       </div>
     </div>
     <div class="health-grid">${statsHtml}</div>
+    ${pet.lastLocation ? `
+    <div class="section-block">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Последнее местоположение</h3>
+      <div class="pet-map-wrap">
+        <div class="pet-map-meta">
+          <div class="pet-map-area">📍 ${pet.lastLocation.area}</div>
+          <div class="pet-map-time">${pet.lastLocation.time}</div>
+        </div>
+        <div class="pet-map" id="petMap"></div>
+        <p class="map-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Демо-точка — здесь появится реальный GPS-трекер питомца.</p>
+      </div>
+    </div>` : ''}
     <div class="section-block">
       <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0112 6a5 5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>Вакцинация</h3>
-      <div class="table-scroll"><table class="vax-table"><thead><tr><th>Вакцина</th><th>Дата введения</th><th>Следующая</th><th>Статус</th><th>До вакцинации</th></tr></thead><tbody>${vaxHtml}</tbody></table></div>
+      ${pet.vaccines.length ? `<div class="table-scroll"><table class="vax-table"><thead><tr><th>Вакцина</th><th>Дата введения</th><th>Следующая</th><th>Статус</th><th>До вакцинации</th></tr></thead><tbody>${vaxHtml}</tbody></table></div>` : `<p class="empty-note">Нет записей о вакцинации — добавьте их у ветеринара при следующем визите.</p>`}
     </div>
     <div class="section-block">
       <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>Документы питомца</h3>
-      <div class="doc-grid">${docsHtml}</div>
+      ${pet.docs.length ? `<div class="doc-grid">${docsHtml}</div>` : `<p class="empty-note">Пока нет документов.</p>`}
     </div>
     ${renderPetHistoryBlocks(pet)}`;
+  if(pet.lastLocation) setTimeout(() => renderPetMap(pet), 30);
 }
 
 /* ================= PET PROFILE EXTRAS: history + bookings ================= */
@@ -1146,10 +1794,10 @@ function renderPetHistoryBlocks(pet){
 function renderHomePetCard(){
   const pet = PETS[activePet];
   const nv = nearestVaccine(pet);
-  const badge = countdownBadge(nv.next);
+  const badge = nv ? countdownBadge(nv.next) : null;
   document.getElementById('homePetCard').innerHTML = `
     <div class="hpc-visual">${pet.avatar}</div>
-    <span class="hpc-vax-flag countdown-badge ${badge.cls}">💉 ${badge.label}</span>
+    ${badge ? `<span class="hpc-vax-flag countdown-badge ${badge.cls}">💉 ${badge.label}</span>` : `<span class="hpc-vax-flag countdown-badge ok">Нет данных о вакцинах</span>`}
     <div class="hpc-body">
       <div class="hpc-label">Ваш питомец</div>
       <div class="hpc-name-row"><h3>${pet.name}</h3><button class="hpc-view-btn" onclick="goTo('pet')">Смотреть профиль</button></div>
@@ -1212,6 +1860,7 @@ function renderServices(){
         </div>
       </div>
     </div>`).join('');
+  if(svcMap) plotServiceMarkers();
 }
 
 let bookingSvcId = null;
@@ -1234,10 +1883,147 @@ function openBookingModal(id){
 function closeBookingModal(){ document.getElementById('bmodalOverlay').classList.remove('open'); bookingSvcId = null; }
 function confirmBooking(){
   const s = SERVICES.find(x => x.id === bookingSvcId);
-  showToast(`Запись к ${s.name} оформлена — демо-режим ✓`);
+  const petKey = document.getElementById('bookPetSelect').value;
+  const dateVal = document.getElementById('bookDate').value;
+  const time = document.getElementById('bookTime').value;
+  const [y,m,d] = dateVal.split('-');
+  const dateRu = `${d}.${m}.${y}`;
+  PETS[petKey].bookings.push({date:dateRu, desc:`${SVC_LABELS[s.cat]} — ${s.name}`, time});
+  PETS[petKey].bookings.sort((a,b) => parseRuDate(a.date) - parseRuDate(b.date));
+  showToast(`Запись к ${s.name} на ${dateRu} оформлена ✓`);
   closeBookingModal();
+  if(petKey === activePet){ renderPetProfile(); renderHomePetCard(); }
 }
 document.getElementById('bmodalOverlay').addEventListener('click', (e) => { if(e.target.id==='bmodalOverlay') closeBookingModal(); });
+
+/* ================= ADD PET ================= */
+const PET_SPECIES_OPTS = [
+  {v:'dog', label:'Собака 🐕'}, {v:'cat', label:'Кошка 🐈'}, {v:'bird', label:'Птица 🦜'}, {v:'other', label:'Другое 🐾'}
+];
+const PET_AVATARS = {dog:'🐕', cat:'🐈', bird:'🦜', other:'🐾'};
+function openAddPetModal(){
+  document.getElementById('amodalBox').innerHTML = `
+    <button class="pmodal-close" style="position:absolute; top:16px; right:16px;" onclick="closeAddPetModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <h3>Новый питомец</h3>
+    <div class="bsub">Добавьте карточку питомца — профиль, вакцинация и записи появятся сразу.</div>
+    <label>Кличка</label>
+    <input type="text" id="apName" placeholder="Например, Барон">
+    <label>Вид</label>
+    <select id="apSpecies">${PET_SPECIES_OPTS.map(o => `<option value="${o.v}">${o.label}</option>`).join('')}</select>
+    <label>Порода</label>
+    <input type="text" id="apBreed" placeholder="Например, Лабрадор">
+    <label>Возраст</label>
+    <input type="text" id="apAge" placeholder="Например, 1 год">
+    <label>Вес</label>
+    <input type="text" id="apWeight" placeholder="Например, 10 кг">
+    <button class="bmodal-confirm" onclick="confirmAddPet()">Добавить питомца</button>`;
+  document.getElementById('amodalOverlay').classList.add('open');
+}
+function closeAddPetModal(){ document.getElementById('amodalOverlay').classList.remove('open'); }
+document.getElementById('amodalOverlay').addEventListener('click', (e) => { if(e.target.id==='amodalOverlay') closeAddPetModal(); });
+function confirmAddPet(){
+  const name = document.getElementById('apName').value.trim();
+  if(!name){ showToast('Введите кличку питомца'); return; }
+  const species = document.getElementById('apSpecies').value;
+  const breed = document.getElementById('apBreed').value.trim() || '—';
+  const age = document.getElementById('apAge').value.trim() || '—';
+  const weight = document.getElementById('apWeight').value.trim() || '—';
+  let key = name.toLowerCase().replace(/[^a-zа-яё0-9]+/gi,'') || 'pet';
+  while(PETS[key]) key += '2';
+  PETS[key] = {
+    name, species, avatar:PET_AVATARS[species] || '🐾', breed, age, weight, owner:'Алексей',
+    status:'ok', statusLabel:'Статус: здоров', healthPct:100,
+    orders:[], ordersTotal:0, bookings:[],
+    stats:[
+      {label:'Вес', val:weight, sub:'Указано владельцем', icon:'weight'},
+      {label:'Возраст', val:age, sub:'Указано владельцем', icon:'calendar'},
+    ],
+    vaccines:[], docs:[]
+  };
+  activePet = key;
+  closeAddPetModal();
+  renderPetSwitch(); renderPetProfile(); renderHomePetCard(); updateAccountChip();
+  showToast(`${name} добавлен(а) в профили питомцев ✓`);
+}
+
+/* ================= DOC PREVIEW ================= */
+function openDocPreview(petKey, idx){
+  const pet = PETS[petKey];
+  const d = pet.docs[idx];
+  document.getElementById('docmodalBox').innerHTML = `
+    <button class="pmodal-close" style="position:absolute; top:16px; right:16px;" onclick="closeDocPreview()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <h3>${d.name}</h3>
+    <div class="bsub">${pet.name} · ${d.meta}</div>
+    <div class="docpreview-frame">
+      <svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+      <p>${d.name}</p>
+    </div>
+    <p class="cmodal-body" style="margin-top:14px;">Демо-режим: в реальном приложении здесь откроется PDF-файл документа, загруженный владельцем или ветклиникой.</p>`;
+  document.getElementById('docmodalOverlay').classList.add('open');
+}
+function closeDocPreview(){ document.getElementById('docmodalOverlay').classList.remove('open'); }
+document.getElementById('docmodalOverlay').addEventListener('click', (e) => { if(e.target.id==='docmodalOverlay') closeDocPreview(); });
+
+/* ================= MAPS (Leaflet + OpenStreetMap, без API-ключа) ================= */
+function svcDivIcon(color){
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:30px;height:30px;border-radius:50% 50% 50% 0; background:${color}; transform:rotate(-45deg); box-shadow:0 2px 6px rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center;"><div style="transform:rotate(45deg); color:#fff; font-size:14px;">🐾</div></div>`,
+    iconSize:[30,30], iconAnchor:[15,29], popupAnchor:[0,-28]
+  });
+}
+function petDivIcon(){
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:34px;height:34px;border-radius:50%; background:var(--orange-500,#FF7A2E); border:3px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; font-size:16px;">📍</div>`,
+    iconSize:[34,34], iconAnchor:[17,17], popupAnchor:[0,-17]
+  });
+}
+function setSvcView(view){
+  svcView = view;
+  document.getElementById('svcViewListBtn').classList.toggle('active', view==='list');
+  document.getElementById('svcViewMapBtn').classList.toggle('active', view==='map');
+  document.getElementById('svcGrid').style.display = view==='list' ? '' : 'none';
+  document.getElementById('svcMapWrap').style.display = view==='map' ? '' : 'none';
+  if(view==='map'){
+    if(!svcMap) renderServicesMap();
+    setTimeout(() => svcMap && svcMap.invalidateSize(), 40);
+  }
+}
+let svcMarkers = [];
+function renderServicesMap(){
+  if(typeof L === 'undefined') return;
+  svcMap = L.map('svcMap', {scrollWheelZoom:false}).setView([25.15, 55.23], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(svcMap);
+  plotServiceMarkers();
+}
+function plotServiceMarkers(){
+  if(!svcMap) return;
+  svcMarkers.forEach(m => svcMap.removeLayer(m));
+  svcMarkers = [];
+  const list = SERVICES.filter(s => activeSvcCat==='all' || s.cat===activeSvcCat);
+  list.forEach(s => {
+    const marker = L.marker([s.lat, s.lng], {icon:svcDivIcon(SVC_MAP_COLOR[s.cat])}).addTo(svcMap);
+    marker.bindPopup(`<div class="map-popup"><h5>${s.name}</h5><p class="mp-sub">${s.role}</p><p class="mp-price">${s.price} AED / ${s.unit} · ★ ${s.rating}</p><button onclick="openBookingModal('${s.id}')">Забронировать</button></div>`);
+    svcMarkers.push(marker);
+  });
+}
+function renderPetMap(pet){
+  if(typeof L === 'undefined') return;
+  const el = document.getElementById('petMap');
+  if(!el) return;
+  if(petMap){ petMap.remove(); petMap = null; }
+  const loc = pet.lastLocation;
+  petMap = L.map('petMap', {scrollWheelZoom:false, zoomControl:false}).setView([loc.lat, loc.lng], 14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom:19, attribution:'&copy; OpenStreetMap'
+  }).addTo(petMap);
+  L.marker([loc.lat, loc.lng], {icon:petDivIcon()}).addTo(petMap).bindPopup(`<div class="map-popup"><h5>${pet.name}</h5><p class="mp-sub">${loc.area}<br>${loc.time}</p></div>`);
+  petMapKey = activePet;
+  setTimeout(() => petMap && petMap.invalidateSize(), 30);
+}
 
 /* ================= COMMUNITY ================= */
 function renderCommunityTags(){
@@ -1245,6 +2031,15 @@ function renderCommunityTags(){
   COMMUNITY_TAGS.forEach(t => { html += `<button class="tag-chip ${activeCommunityTag===t?'active':''}" data-tag="${t}">${t}</button>`; });
   document.getElementById('communityTags').innerHTML = html;
   document.querySelectorAll('[data-tag]').forEach(b => b.addEventListener('click', () => { activeCommunityTag = b.dataset.tag; renderCommunityTags(); renderCommunityFeed(); }));
+}
+
+const likedPosts = new Set();
+function toggleLike(id, ev){
+  ev.stopPropagation();
+  const p = COMMUNITY_POSTS.find(x => x.id === id);
+  if(likedPosts.has(id)){ likedPosts.delete(id); p.likes--; } else { likedPosts.add(id); p.likes++; }
+  renderCommunityFeed();
+  if(document.getElementById('cmodalOverlay').classList.contains('open') && cmodalOpenId === id) openPostModal(id);
 }
 
 function renderCommunityFeed(){
@@ -1256,13 +2051,15 @@ function renderCommunityFeed(){
       <p class="post-excerpt">${p.excerpt}</p>
       <div class="post-foot">
         <div class="post-tags">${p.tags.map(t => `<span class="post-tag">${t}</span>`).join('')}</div>
-        <div class="post-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>${p.likes}</div>
+        <button class="post-stat post-like ${likedPosts.has(p.id) ? 'liked' : ''}" onclick="toggleLike('${p.id}', event)"><svg viewBox="0 0 24 24" fill="${likedPosts.has(p.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>${p.likes}</button>
         <div class="post-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-8.5 8.5 8.5 8.5 0 010-17 8.38 8.38 0 018.5 8.5z"/></svg>${p.comments.length}</div>
       </div>
     </div>`).join('');
 }
 
+let cmodalOpenId = null;
 function openPostModal(id){
+  cmodalOpenId = id;
   const p = COMMUNITY_POSTS.find(x => x.id === id);
   const commentsHtml = p.comments.length ? p.comments.map(c => `
     <div class="cmodal-comment"><div class="post-avatar">${c.author.slice(0,2).toUpperCase()}</div>
@@ -1273,11 +2070,25 @@ function openPostModal(id){
     <div class="post-head"><div class="post-avatar">${p.initials}</div><div><div class="post-author">${p.author}</div><div class="post-time">${p.time}</div></div></div>
     <h2 style="font-size:20px; margin:16px 0 0;">${p.title}</h2>
     <div class="post-tags" style="margin-top:10px;">${p.tags.map(t => `<span class="post-tag">${t}</span>`).join('')}</div>
-    <div class="cmodal-body">${p.excerpt} Подробностями делятся другие владельцы в комментариях ниже — это демо-версия ленты сообщества, полноценные посты и переписка появятся на следующем этапе разработки.</div>
-    <div class="cmodal-comments">${commentsHtml}</div>`;
+    <div class="cmodal-body">${p.excerpt} Подробностями делятся другие владельцы в комментариях ниже.</div>
+    <button class="post-stat post-like cmodal-like ${likedPosts.has(p.id) ? 'liked' : ''}" onclick="toggleLike('${p.id}', event)"><svg viewBox="0 0 24 24" fill="${likedPosts.has(p.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>${likedPosts.has(p.id) ? 'Нравится' : 'Нравится'} · ${p.likes}</button>
+    <div class="cmodal-comments">${commentsHtml}</div>
+    <div class="cmodal-addcomment">
+      <input type="text" id="cmodalCommentInput" placeholder="Написать комментарий..." maxlength="240">
+      <button onclick="submitComment('${p.id}')">Отправить</button>
+    </div>`;
   document.getElementById('cmodalOverlay').classList.add('open');
 }
-function closePostModal(){ document.getElementById('cmodalOverlay').classList.remove('open'); }
+function submitComment(id){
+  const input = document.getElementById('cmodalCommentInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const p = COMMUNITY_POSTS.find(x => x.id === id);
+  p.comments.push({author:'Алексей', text});
+  openPostModal(id);
+  renderCommunityFeed();
+}
+function closePostModal(){ document.getElementById('cmodalOverlay').classList.remove('open'); cmodalOpenId = null; }
 document.getElementById('cmodalOverlay').addEventListener('click', (e) => { if(e.target.id==='cmodalOverlay') closePostModal(); });
 
 let toastTimer;
@@ -1295,6 +2106,8 @@ function goTo(view){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + view).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
+  if(view === 'pet' && petMap) setTimeout(() => petMap.invalidateSize(), 60);
+  if(view === 'services' && svcMap && svcView === 'map') setTimeout(() => svcMap.invalidateSize(), 60);
 }
 document.querySelectorAll('.navbtn').forEach(btn => {
   btn.addEventListener('click', () => goTo(btn.dataset.view));
