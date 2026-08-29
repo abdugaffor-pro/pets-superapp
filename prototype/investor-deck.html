@@ -65,8 +65,12 @@
   .reveal.d1{transition-delay:.06s;} .reveal.d2{transition-delay:.13s;} .reveal.d3{transition-delay:.2s;} .reveal.d4{transition-delay:.27s;}
 
   /* ===== glass system (light glassmorphism) ===== */
+  /* blur kept modest (14px, not 22+) — backdrop-filter is the single biggest
+     GPU cost on this page and this deck leans on dozens of .glass elements;
+     a cheaper blur keeps scrolling smooth on mobile GPUs without a visible
+     difference in the look. */
   .glass{background:var(--glass); border:1px solid var(--glass-brd); border-radius:22px;
-    backdrop-filter:blur(22px) saturate(160%); -webkit-backdrop-filter:blur(22px) saturate(160%);
+    backdrop-filter:blur(14px) saturate(150%); -webkit-backdrop-filter:blur(14px) saturate(150%);
     box-shadow:0 1px 0 var(--glass-hi) inset, 0 22px 46px var(--shadow-soft);
     position:relative; overflow:hidden;}
   .glass::before{content:''; position:absolute; top:0; left:0; right:0; height:1px;
@@ -94,7 +98,12 @@
   .rail button{width:7px;height:7px;border-radius:50%; border:1.5px solid rgba(40,40,40,0.3); background:transparent; padding:0; cursor:pointer; transition:all .25s ease;}
   .rail button.active{background:var(--orange); border-color:var(--orange); box-shadow:0 0 10px rgba(255,106,0,0.6); transform:scale(1.4);}
 
+  .scroll-progress{position:fixed; top:0; left:0; height:3px; width:0%; z-index:60;
+    background:linear-gradient(90deg, var(--orange), var(--amber) 50%, var(--teal)); box-shadow:0 0 12px rgba(255,106,0,0.45);}
+
   @keyframes floaty{0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);}}
+  @keyframes pulseglow{0%,100%{box-shadow:0 10px 26px rgba(255,106,0,0.32);} 50%{box-shadow:0 16px 44px rgba(255,106,0,0.58);}}
+  @keyframes chipin{from{opacity:0; transform:translateY(14px) scale(.94);} to{opacity:1; transform:translateY(0) scale(1);}}
 
   /* ===== COVER ===== */
   #s-cover{padding:0; justify-content:center; align-items:center; text-align:center;}
@@ -109,7 +118,8 @@
   .cover-tagline{font-size:clamp(15px,1.6vw,18.5px); color:var(--text-1); font-weight:400; margin:22px auto 0; max-width:520px;}
   .cover-cta{margin-top:30px;}
   .float-chip{position:absolute; z-index:2; padding:11px 18px; border-radius:100px; font-size:12px; font-weight:700; letter-spacing:.02em;
-    display:flex; align-items:center; gap:8px; animation:floaty 6s ease-in-out infinite; will-change:transform;}
+    display:flex; align-items:center; gap:8px; opacity:0;
+    animation:chipin .7s cubic-bezier(.16,.84,.24,1) forwards, floaty 6s ease-in-out .7s infinite; will-change:transform;}
   .float-chip svg{width:14px;height:14px;}
 
   /* ===== PROBLEM ===== */
@@ -161,20 +171,42 @@
   .stat-src{font-size:10.5px; color:var(--text-2); margin-top:10px;}
   .market-foot{margin-top:26px; font-size:11.5px; color:var(--text-2); max-width:640px; line-height:1.65;}
 
-  /* ===== BUSINESS MODEL ===== */
-  .segtoggle{display:inline-flex; padding:5px; gap:4px; border-radius:100px;}
-  .segbtn{border:none; background:transparent; color:var(--text-1); font-weight:700; font-size:12.5px; padding:11px 22px; border-radius:100px; cursor:pointer; font-family:inherit; transition:all .2s ease;}
-  .segbtn.active{background:linear-gradient(155deg, var(--orange-2), var(--orange)); color:#1a0e00;}
-  .bm-panels{margin-top:34px;}
-  .bm-panel{display:none; grid-template-columns:repeat(3,1fr); gap:16px;}
-  .bm-panel.active{display:grid;}
-  .bm-card{padding:24px;}
-  .bm-card .ic{font-size:22px; margin-bottom:12px;}
-  .bm-card h5{margin:0 0 8px; font-size:14.5px; font-weight:700; color:var(--text-0);}
-  .bm-card p{margin:0; font-size:12.5px; line-height:1.6; color:var(--text-1);}
-  .bm-tag{display:inline-block; margin-top:14px; font-size:10.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:5px 11px; border-radius:100px;}
-  .bm-tag.live{background:rgba(0,160,166,0.15); color:var(--teal-deep); border:1px solid rgba(0,160,166,.35);}
-  .bm-tag.model{background:rgba(40,40,40,0.05); color:var(--text-1); border:1px solid var(--glass-brd);}
+  /* ===== PRODUCTION & BRAND ===== */
+  .prod-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:38px;}
+  .prod-card{padding:24px;}
+  .prod-card .ic{font-size:23px; margin-bottom:12px;}
+  .prod-card h5{margin:0 0 8px; font-size:14px; font-weight:700; color:var(--text-0); line-height:1.3;}
+  .prod-card p{margin:0; font-size:12px; line-height:1.62; color:var(--text-1);}
+  .prod-tag{display:inline-block; margin-top:14px; font-size:10px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:5px 11px; border-radius:100px;
+    background:rgba(224,145,42,0.16); color:var(--amber); border:1px solid rgba(224,145,42,.4);}
+  .prod-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px;}
+  .prod-stat{padding:18px 22px; text-align:center;}
+  .prod-stat b{display:block; font-family:'Fraunces',serif; font-size:23px; color:var(--text-0); font-variant-numeric:tabular-nums;}
+  .prod-stat span{font-size:11px; color:var(--text-1); line-height:1.4;}
+
+  /* ===== PLATFORM (star slide) ===== */
+  #s-platform{background:radial-gradient(circle at 78% 18%, rgba(255,138,61,0.14), transparent 55%);}
+  .eyebrow.star{background:linear-gradient(155deg, var(--orange-2), var(--orange)); color:#1a0e00; border-color:transparent;
+    animation:pulseglow 2.6s ease-in-out infinite;}
+  .platform-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:36px;}
+  .plat-card{padding:20px;}
+  .plat-card.big{grid-column:span 2;}
+  .plat-card .ic{font-size:21px; margin-bottom:10px;}
+  .plat-card h5{margin:0 0 6px; font-size:13px; font-weight:700; color:var(--text-0); line-height:1.3;}
+  .plat-card p{margin:0; font-size:11.5px; line-height:1.56; color:var(--text-1);}
+  .plat-tag{display:inline-block; margin-top:11px; font-size:9.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:4px 10px; border-radius:100px;
+    background:rgba(0,160,166,0.15); color:var(--teal-deep); border:1px solid rgba(0,160,166,.35);}
+  .plat-tag.new{background:rgba(255,106,0,0.14); color:var(--orange); border-color:rgba(255,106,0,.35);}
+
+  .vs-compare{display:flex; align-items:stretch; margin-top:38px; border-radius:22px; overflow:hidden; max-width:760px;
+    border:1px solid var(--glass-brd); box-shadow:0 22px 46px var(--shadow-soft);}
+  .vs-side{flex:1; padding:24px 28px;}
+  .vs-side.is-product{background:rgba(40,40,40,0.045);}
+  .vs-side.is-platform{background:linear-gradient(155deg, rgba(255,138,61,0.2), rgba(255,106,0,0.09));}
+  .vs-side h6{margin:0 0 10px; font-size:10.5px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--text-2);}
+  .vs-side b{display:block; font-family:'Fraunces',serif; font-size:25px; color:var(--text-0); margin-bottom:6px; line-height:1.15;}
+  .vs-side span{font-size:12px; color:var(--text-1); line-height:1.55;}
+  .vs-divider{width:1px; background:var(--glass-brd);}
 
   /* ===== TRACTION ===== */
   .trac-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px;}
@@ -223,9 +255,15 @@
   .close-links{display:flex; gap:16px; justify-content:center; margin-top:38px; flex-wrap:wrap;}
   .close-foot{margin-top:64px; font-size:11px; color:var(--text-2); letter-spacing:.05em;}
 
+  @media (max-width:1100px){
+    .prod-grid, .platform-grid{grid-template-columns:repeat(2,1fr);}
+    .plat-card.big{grid-column:span 2;}
+  }
   @media (max-width:860px){
     .slide{padding:110px 22px;}
-    .pain-grid, .stat-grid, .bm-panel, .fin-kpis, .ask-metrics{grid-template-columns:1fr;}
+    .pain-grid, .stat-grid, .fin-kpis, .ask-metrics, .prod-stats{grid-template-columns:1fr;}
+    .prod-grid, .platform-grid{grid-template-columns:1fr;}
+    .plat-card.big{grid-column:span 1;}
     .trac-grid{grid-template-columns:repeat(2,1fr);}
     .eco-wrap{min-height:auto; display:flex; flex-direction:column; align-items:center; gap:14px;}
     .eco-orbit{position:static; display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%;}
@@ -236,6 +274,8 @@
     .fin-chart{gap:20px;}
     .device-frame{transform:none;}
     .cover-card{padding:38px 26px;}
+    .vs-compare{flex-direction:column;}
+    .vs-divider{width:100%; height:1px;}
   }
 </style>
 </head>
@@ -243,6 +283,7 @@
 
 
 <div class="spotlight" id="spotlight"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
 <div class="rail" id="rail"></div>
 
 <!-- ================= COVER ================= -->
@@ -341,27 +382,46 @@
 </section>
 
 <!-- ================= BUSINESS MODEL ================= -->
-<section class="slide" id="s-model" data-title="Модель">
-  <div class="ambient" data-speed="-0.05" style="width:520px;height:520px; background:radial-gradient(circle, rgba(0,160,166,0.16), transparent 70%); bottom:-14%; right:-10%;"></div>
+<section class="slide" id="s-production" data-title="Производство">
+  <div class="ambient" data-speed="-0.04" style="width:480px;height:480px; background:radial-gradient(circle, rgba(214,163,94,0.22), transparent 70%); top:-10%; left:-8%;"></div>
   <div class="slide-inner">
-    <div class="eyebrow reveal"><span class="dot"></span>Бизнес-модель</div>
-    <h2 class="slide-title reveal d1">Доход растёт в два слоя: продукт и платформа</h2>
-    <p class="lead reveal d2">Финмодель уже считает товарный бизнес. Платформа поверх него — дополнительный потенциал, часть которого уже работает вживую.</p>
-    <div class="segtoggle glass reveal d3" id="bmToggle">
-      <button class="segbtn active" data-panel="today">Сегодня — продукт</button>
-      <button class="segbtn" data-panel="tomorrow">Завтра — платформа</button>
+    <div class="eyebrow reveal"><span class="dot"></span>Производство и собственный бренд</div>
+    <h2 class="slide-title reveal d1">Себестоимость конструктора, цена <span class="grad-text">люкса</span></h2>
+    <p class="lead reveal d2">Компоненты закупаются в Китае модульно, как детали конструктора Lego — это держит COGS низким. Финальная сборка и упаковка происходит на нашей площадке в ОАЭ, что даёт статус Made in UAE и премиальное позиционирование на полке.</p>
+    <div class="prod-grid reveal d3">
+      <div class="prod-card glass tilt"><div class="ic">🧩</div><h5>Модульные компоненты из Китая</h5><p>Закупаем детали, а не готовые изделия — как конструктор. Гибкая сборка под разные SKU и низкая себестоимость без потери качества.</p><span class="prod-tag">COGS-преимущество</span></div>
+      <div class="prod-card glass tilt"><div class="ic">🇦🇪</div><h5>Made in UAE</h5><p>Финальная сборка и упаковка — на нашей площадке в ОАЭ. Это официальный статус страны происхождения и таможенные/экспортные преимущества.</p><span class="prod-tag">Статус подтверждён</span></div>
+      <div class="prod-card glass tilt"><div class="ic">💎</div><h5>Продаём как люкс</h5><p>Наценка идёт за бренд и дизайн, не за производство — классическая модель люксовых брендов при значительно более дешёвой базе COGS.</p><span class="prod-tag">Маржа бренда</span></div>
+      <div class="prod-card glass tilt"><div class="ic">🤝</div><h5>Коллабы и роялти</h5><p>В планах — совместные лимитированные коллекции с люксовыми и pet-брендами: лицензирование и роялти поверх обычных продаж.</p><span class="prod-tag">В разработке</span></div>
     </div>
-    <div class="bm-panels reveal d4">
-      <div class="bm-panel active" id="bm-today">
-        <div class="bm-card glass tilt"><div class="ic">🏭</div><h5>Бренд-владелец (ОАЭ)</h5><p>Lucky Paul — премиальный собственный бренд, Free Zone структура, опт российским дистрибьюторам.</p><span class="bm-tag model">В финмодели</span></div>
-        <div class="bm-card glass tilt"><div class="ic">🚚</div><h5>3 канала дистрибуции РФ</h5><p>Маркетплейсы, премиальный офлайн, B2B/профессиональный канал — независимые дистрибьюторы, целевая EBITDA 12–18%.</p><span class="bm-tag model">В финмодели</span></div>
-        <div class="bm-card glass tilt"><div class="ic">📦</div><h5>Опт как % от розницы</h5><p>Оптовая цена — 50–57% от розничной без НДС; средний чек ₽7 900 в премиум-сегменте.</p><span class="bm-tag model">В финмодели</span></div>
-      </div>
-      <div class="bm-panel" id="bm-tomorrow">
-        <div class="bm-card glass tilt"><div class="ic">💳</div><h5>Комиссия маркетплейса</h5><p>% с каждой продажи партнёрских товаров внутри приложения — по модели классических маркетплейсов.</p><span class="bm-tag live">Потенциал платформы</span></div>
-        <div class="bm-card glass tilt"><div class="ic">📅</div><h5>Комиссия за бронирование услуг</h5><p>% с записи к ветеринару, грумеру, тренеру, передержке через приложение.</p><span class="bm-tag live">Потенциал платформы</span></div>
-        <div class="bm-card glass tilt"><div class="ic">🤝</div><h5>Партнёрская программа + SaaS</h5><p>Форма «Стать бизнес-партнёром» уже работает на сайте и принимает заявки на business@luckypaul.com; далее — платная витрина и инструменты для партнёров.</p><span class="bm-tag live">Уже работает</span></div>
-      </div>
+    <div class="prod-stats reveal d4">
+      <div class="prod-stat glass"><b>12.6 мес</b><span>Окупаемость вложений</span></div>
+      <div class="prod-stat glass"><b>50–57%</b><span>Опт как доля от розницы</span></div>
+      <div class="prod-stat glass"><b>4.3% → 9.8%</b><span>Рост целевой EBITDA-маржи</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s-platform" data-title="Платформа">
+  <div class="ambient" data-speed="-0.06" style="width:620px;height:620px; background:radial-gradient(circle, rgba(255,106,0,0.2), transparent 70%); top:-16%; right:-12%;"></div>
+  <div class="ambient" data-speed="-0.03" style="width:420px;height:420px; background:radial-gradient(circle, rgba(0,160,166,0.14), transparent 70%); bottom:-10%; left:-6%;"></div>
+  <div class="slide-inner">
+    <div class="eyebrow star reveal"><span class="dot"></span>★ Главная ставка компании</div>
+    <h2 class="slide-title reveal d1">Производство — это бизнес. Платформа — это <span class="grad-text">единорог</span></h2>
+    <p class="lead reveal d2">Бренд — это несколько люксовых товаров с хорошей маржой. Платформа — это доля от всего оборота рынка домашних животных, даже если человек купит не наш продукт, а более дешёвый — внутри нашего приложения. Небольшой % с огромного оборота обгоняет маржу с десятков дорогих товаров.</p>
+    <div class="platform-grid reveal d3">
+      <div class="plat-card glass tilt"><div class="ic">🛍️</div><h5>Маркетплейс любых товаров</h5><p>Комиссия с продажи товаров сторонних продавцов внутри приложения — классическая модель маркетплейса.</p><span class="plat-tag new">Потенциал</span></div>
+      <div class="plat-card glass tilt"><div class="ic">📅</div><h5>Бронирование услуг</h5><p>% с записи к ветеринару, грумеру, тренеру, передержке через приложение.</p><span class="plat-tag new">Потенциал</span></div>
+      <div class="plat-card glass tilt"><div class="ic">✈️</div><h5>Перевозка животных</h5><p>Логистика и релокация питомцев — направление с высоким чеком и почти нулевой текущей конкуренцией.</p><span class="plat-tag new">Потенциал</span></div>
+      <div class="plat-card glass tilt"><div class="ic">🚚</div><h5>Доставка и подписка</h5><p>Регулярная доставка кормов и товаров по подписке — предсказуемый повторяющийся доход.</p><span class="plat-tag new">Потенциал</span></div>
+      <div class="plat-card glass tilt"><div class="ic">🤝</div><h5>SaaS для бизнес-партнёров</h5><p>Форма «Стать партнёром» уже работает на сайте. 6–12 месяцев бесплатно, чтобы набрать базу — затем платная подписка и инструменты.</p><span class="plat-tag">Уже работает</span></div>
+      <div class="plat-card glass tilt"><div class="ic">📣</div><h5>Реклама и приоритет</h5><p>Платное продвижение и приоритетное размещение партнёров в поиске и каталоге приложения.</p><span class="plat-tag new">Потенциал</span></div>
+      <div class="plat-card glass tilt big"><div class="ic">🛡️</div><h5>Финтех и страхование питомцев</h5><p>Долгосрочное направление: страхование здоровья животных и финансовые продукты для владельцев прямо внутри экосистемы.</p><span class="plat-tag new">Потенциал</span></div>
+    </div>
+    <div class="vs-compare reveal d4">
+      <div class="vs-side is-product"><h6>Товар</h6><b>1 продажа</b><span>Маржа с одного люксового товара — ограничена спросом на наш конкретный бренд.</span></div>
+      <div class="vs-divider"></div>
+      <div class="vs-side is-platform"><h6>Платформа</h6><b>~1% × весь рынок</b><span>Комиссия с любой покупки на платформе — даже если пользователь выбрал не наш бренд.</span></div>
     </div>
   </div>
 </section>
@@ -542,9 +602,10 @@
     nodes.forEach(function(el){ countIO.observe(el); });
   });
 
-  // Scroll parallax for ambient blobs + cover image
+  // Scroll parallax for ambient blobs + cover image + top progress bar
   safe(function(){
     var ticking = false;
+    var progress = document.getElementById('scrollProgress');
     function onScroll(){
       if(ticking) return;
       ticking = true;
@@ -559,6 +620,12 @@
         if(coverEl && coverImg){
           var coverRect = coverEl.getBoundingClientRect();
           coverImg.style.transform = 'translateY(' + (coverRect.top * -0.15) + 'px) scale(1.08)';
+        }
+        if(progress){
+          var doc = document.documentElement;
+          var max = doc.scrollHeight - doc.clientHeight;
+          var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+          progress.style.width = pct + '%';
         }
         ticking = false;
       });
@@ -583,9 +650,17 @@
     });
     document.addEventListener('mouseleave', function(){ document.body.classList.remove('mouse-active'); });
 
+    // This rAF loop used to run unconditionally for the entire page
+    // lifetime even though [data-mouse-depth] elements only exist on the
+    // cover slide — that was the main source of the "choppy/freezes"
+    // complaint (constant CPU/GPU work no matter how far you'd scrolled).
+    // It's now gated by an IntersectionObserver so it only runs while the
+    // cover is actually in view, and is cleanly stopped otherwise.
     var depthEls = Array.prototype.slice.call(document.querySelectorAll('[data-mouse-depth]'));
-    if(depthEls.length){
+    var coverSlide = document.getElementById('s-cover');
+    if(depthEls.length && coverSlide){
       var curX = 0, curY = 0;
+      var rafId = null;
       function depthLoop(){
         var targetX = (mx - 0.5) * 2, targetY = (my - 0.5) * 2;
         curX += (targetX - curX) * 0.06;
@@ -594,9 +669,17 @@
           var d = parseFloat(el.dataset.mouseDepth);
           el.style.transform = 'translate3d(' + (curX*d) + 'px, ' + (curY*d) + 'px, 0)';
         });
-        requestAnimationFrame(depthLoop);
+        rafId = requestAnimationFrame(depthLoop);
       }
-      depthLoop();
+      function startLoop(){ if(rafId === null) depthLoop(); }
+      function stopLoop(){ if(rafId !== null){ cancelAnimationFrame(rafId); rafId = null; } }
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(entries){
+          entries.forEach(function(e){ e.isIntersecting ? startLoop() : stopLoop(); });
+        }, {threshold:0}).observe(coverSlide);
+      } else {
+        startLoop(); // no IO support — fall back to the old always-on behavior
+      }
     }
   });
 
@@ -632,19 +715,6 @@
         document.querySelectorAll('#prodShot .shot-img').forEach(function(img){
           img.classList.toggle('active', img.dataset.shot === btn.dataset.shot);
         });
-      });
-    });
-  });
-
-  // Business model toggle
-  safe(function(){
-    document.querySelectorAll('#bmToggle .segbtn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('#bmToggle .segbtn').forEach(function(b){ b.classList.remove('active'); });
-        btn.classList.add('active');
-        document.querySelectorAll('.bm-panel').forEach(function(p){ p.classList.remove('active'); });
-        var panel = document.getElementById('bm-' + btn.dataset.panel);
-        if(panel) panel.classList.add('active');
       });
     });
   });
