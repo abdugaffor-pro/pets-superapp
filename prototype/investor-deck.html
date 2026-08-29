@@ -669,14 +669,20 @@
     if(finChart) finIO.observe(finChart);
   });
 
-  // Cover CTA — smooth-scroll to the next slide
+  // Cover CTA — smooth-scroll to the next slide, with a hard fallback in
+  // case a smooth-scroll animation gets interrupted by the browser/OS.
   safe(function(){
     var cta = document.getElementById('coverCta');
     if(!cta) return;
     cta.addEventListener('click', function(ev){
       ev.preventDefault();
       var next = document.getElementById('s-problem');
-      if(next) next.scrollIntoView({behavior:'smooth'});
+      if(!next) return;
+      next.scrollIntoView({behavior:'smooth'});
+      setTimeout(function(){
+        var stillFar = Math.abs(next.getBoundingClientRect().top) > 40;
+        if(stillFar) next.scrollIntoView({behavior:'auto'});
+      }, 900);
     });
   });
 })();
